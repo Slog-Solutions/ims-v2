@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { updateProfile, getUsers } from '../controllers/user.controller.js';
+import { authenticate } from '../middleware/auth.middleware.js';
+
+const router = Router();
+
+router.use(authenticate);
+
+router.put('/profile', updateProfile);
+router.get('/', getUsers);
+
+export default router;

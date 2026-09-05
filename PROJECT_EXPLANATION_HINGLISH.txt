@@ -1,0 +1,57 @@
+================================================================================
+            EQPT INFO & MGMT SYS (SIMPLE HINGLISH MEIN EXPLANATION)
+                   Combat Engineer Stores - BEG & Centre Roorkee
+================================================================================
+
+1. PROJECT KYA KARTA HAI? (OVERVIEW)
+--------------------------------------------------------------------------------
+Yeh project Combat Engineer units (Sappers) ke saare equipment aur stores ko 
+digitally manage karne ke liye banaya gaya hai. 
+
+Pehle kya hota tha? Har cheez manually register par likhi jaati thi aur commanders ko 
+pata nahi chalta tha ki ground par kaunsa asset kahan deployed hai, kitna purana (vintage) 
+hai, aur kitne items serviceable (thik) ya repairable hain. 
+
+Ab kya hota hai? Humne poore system ko digitize kar diya hai. Har ek physical item ke 
+paas Serial Number aur RFID Tag hai, jisse unki exact position ground map par aur unki 
+correct age system par real-time dikhti hai.
+
+2. DB MEIN DATA KA KYA STRUCTURE HAI? (MODELS)
+--------------------------------------------------------------------------------
+* User: Do types ke users hain:
+  - "master": Commander level user. Yeh task plan kar sakte hain aur analytics dekh sakte hain.
+  - "establishment": Unit Storekeepers (jaise Training Battalions). Yeh defects log karte hain aur stock manage karte hain.
+* Item: Nomenclature master list (jaise Sapper Shovel Mk.IV, Nylon Rope, Combat Helmet).
+* EquipmentSet: Yeh sets ke blueprints hain. Jaise "Bridging Set Mk.I" banana hai toh usme kya-kya item kitni quantity mein chahiye, yeh isme defined hota hai.
+* PhysicalStoreItem: Yeh real individual items ko track karta hai. Isme har item ka serialNumber, rfidTag, procurementYear (kis saal kharida gaya/vintage), serviceability state (thik hai ya kharab), status (depot mein hai ya field par), and live map coordinates store hote hain.
+* Task: Jo Operations plan hote hain (jaise bridge banana). Isme select kiya jata hai ki kaunsa set chahiye aur kaunse physical items wahan allocate (bheje) hue hain.
+
+3. FRONTEND MEIN KYA-KYA FEATURE WIDGETS HAIN?
+--------------------------------------------------------------------------------
+* Dashboard: Unit aur HQ ke hisab se alerts aur pending items ke status cards dikhata hai.
+* Equipment Central (Main Search Page):
+  - Ek dropdown se set select karo (jaise Bridging Set Mk.I).
+  - Select karte hi 4 main categories khulengi:
+    1. Store Held & Map: SVG radar map par ground coordinates par assets live dikhte hain (Green = OK, Yellow = Repair, Red = Down).
+    2. Vintage (Age): Custom histogram chart dikhata hai ki kaunsa equipment kitne saal purana ho chuka hai, taaki command check kar sake ki kab naye ki zarurat hai.
+    3. Maintenance: Jo defects storekeeper ne report kiye hain wo dikhte hain. Modal se naye defects aur routine service schedule register kar sakte hain.
+    4. RFID Telemetry: RF tags ki signal strength, scanner activity aur battery levels show karta hai.
+* Task Planner:
+  - Commander naya task plan karta hai.
+  - System automatically calculation karke "Deficiency Check" karta hai (e.g. agar 15 shovels chahiye aur unit ke paas sirf 12 thik hain, toh 3 ki shortage flag kar dega).
+  - Commander available items ko check-box se task par allocate kar sakta hai.
+* RFID Simulator:
+  - Ek mock control panel checkpoint hai. Kisi item ko select karke naye checkpoint location (e.g. River launch site) par scan karoge toh live broadcast socket ke through updates send karega aur maps par changes turant reflect honge.
+
+4. SEEDING AUR SERVER KAISE CHALAYEIN?
+--------------------------------------------------------------------------------
+1. Database clean karke fresh dummy data seed karne ke liye (Atlas DB se connect hoga):
+   - Command: `cd backend`
+   - Command: `npm run seed`
+2. Backend API aur Frontend Client dono ek sath chalane ke liye:
+   - Command: `npm run dev` (Workspace root parent folder mein)
+3. Testing credentials:
+   - Login Email: `master@beg.centre`
+   - Password: `Password@123`
+================================================================================
+

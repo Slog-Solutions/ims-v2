@@ -1,0 +1,26 @@
+{
+  "name": "eqpt-info-mgmt-sys",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+ "scripts": {
+  "client": "npm run dev --prefix frontend",
+  "server": "npm run dev --prefix backend",
+  "dev": "concurrently \"npm run server\" \"npm run client\""
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Slog-Solutions/farm-flow.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Slog-Solutions/farm-flow/issues"
+  },
+  "homepage": "https://github.com/Slog-Solutions/farm-flow#readme",
+  "dependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

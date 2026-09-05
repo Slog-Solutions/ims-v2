@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BEG & Centre Roorkee - EQPT INFO & MGMT SYS</title>
+    <!-- Preload local Noto Sans fonts (Rapido style typography) -->
+    <link rel="preload" href="/fonts/NotoSans-Regular.ttf" as="font" type="font/ttf" crossorigin />
+    <link rel="preload" href="/fonts/NotoSans-Bold.ttf" as="font" type="font/ttf" crossorigin />
+    <style>
+      /* Immediate preloader styles (0ms white screen fix) */
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #0d1b1e;
+        font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      #app-preloader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        color: #ffffff;
+        text-align: center;
+        background: radial-gradient(circle at center, #1b382b 0%, #0d1b1e 100%);
+      }
+      .preloader-spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        border-left-color: #2ea44f;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-bottom: 20px;
+      }
+      .preloader-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        lette r-spacing: 0.5px;
+        color: #e2e8f0;
+        margin: 0;
+      }
+      .preloader-subtitle {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        margin-top: 8px;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div id="app-preloader">
+        <div class="preloader-spinner"></div>
+        <h2 class="preloader-title">Loading Application...</h2>
+        <p class="preloader-subtitle">Please wait while components initialize</p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

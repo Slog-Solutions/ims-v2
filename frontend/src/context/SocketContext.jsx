@@ -1,0 +1,60 @@
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { io } from 'socket.io-client';
+import { useSelector, useDispatch } from 'react-redux';
+import { addNotification } from '../store/slices/uiSlice.js';
+
+const SocketContext = createContext();
+
+export const SocketProvider = ({ children }) => {
+  const [socket, setSocket] = useState(null);
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!isAuthenticated || !user) {
+      if (socket) {
+        socket.disconnect();
+        setSocket(null);
+      }
+      return;
+    }
+
+    const newSocket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000', {
+      auth: (cb) => {
+        cb({ token: localStorage.getItem('accessToken') });
+      },
+      transports: ['websocket', 'polling'],
+    });
+
+    newSocket.on('connect', () => {
+      console.log('🔌 Socket connected to server');
+      
+      // Join corresponding rooms
+      newSocket.emit('join:room', 'centre');
+      if (user.role === 'master') {
+        newSocket.emit('join:room', 'master');
+      } else {
+        newSocket.emit('join:room', `establishment:${user._id}`);
+      }
+    });
+
+    // Listen for global notifications
+    newSocket.on('notification', (notif) => {
+      dispatch(addNotification(notif));
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [isAuthenticated, user]);
+
+  return (
+    <SocketContext.Provider value={socket}>
+      {children}
+    </SocketContext.Provider>
+  );
+};
+
+export const useSocket = () => useContext(SocketContext);
