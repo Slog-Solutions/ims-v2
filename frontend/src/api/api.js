@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:7000/api/v1',
   withCredentials: true,
   timeout: 12000, // 12 second timeout to prevent indefinite hanging
   headers: {
@@ -44,7 +44,7 @@ api.interceptors.response.use(
 
         // Call the refresh endpoint
         const res = await axios.post(
-          `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1'}/auth/refresh-token`,
+          `${import.meta.env.VITE_API_URL || 'http://localhost:7000/api/v1'}/auth/refresh-token`,
           { refreshToken: storedRefreshToken },
           { withCredentials: true }
         );

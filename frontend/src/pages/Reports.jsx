@@ -122,7 +122,7 @@ const Reports = () => {
   const handleExportExcel = () => {
     if (!selectedItem || !selectedEst) return;
     const token = localStorage.getItem('accessToken');
-    const exportUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1'}/reports/export/excel?itemId=${selectedItem}&establishmentId=${selectedEst}&token=${token}`;
+    const exportUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:7000/api/v1'}/reports/export/excel?itemId=${selectedItem}&establishmentId=${selectedEst}&token=${token}`;
     window.open(exportUrl, '_blank');
   };
 

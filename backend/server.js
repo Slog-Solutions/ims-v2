@@ -6,7 +6,7 @@ import connectDB from './src/config/db.js';
 import { initializeSocket } from './src/socket/index.js';
 import logger from './src/utils/logger.js';
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 7000;
 
 const server = http.createServer(app);
 

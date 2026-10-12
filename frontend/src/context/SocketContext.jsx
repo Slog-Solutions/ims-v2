@@ -19,7 +19,7 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    const newSocket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000', {
+    const newSocket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:7000', {
       auth: (cb) => {
         cb({ token: localStorage.getItem('accessToken') });
       },
